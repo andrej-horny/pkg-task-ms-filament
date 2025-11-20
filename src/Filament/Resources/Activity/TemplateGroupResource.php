@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\Activity;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity;
 
-use App\Filament\Resources\Activity\TemplateGroupResource\Forms\ActivityTemplateGroupForm;
-use App\Filament\Resources\Activity\TemplateGroupResource\Tables\ActivityTemplateGroupTable;
-use App\Filament\Resources\Activity\TemplateGroupResource\Pages;
-use Dpb\Package\Activities\Models\TemplateGroup;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource\Forms\ActivityTemplateGroupForm;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource\Tables\ActivityTemplateGroupTable;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource\Pages;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Activities\EloquentActivityTemplateGroup;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,7 +12,6 @@ use Filament\Tables\Table;
 
 class TemplateGroupResource extends Resource
 {
-    // protected static ?string $model = TemplateGroup::class;
     protected static ?string $model = EloquentActivityTemplateGroup::class;
 
     public static function getModelLabel(): string

@@ -1,0 +1,85 @@
+<?php
+
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket;
+
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tickets\EloquentTicketType;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Pages;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class TicketTypeResource extends Resource
+{
+    protected static ?string $model = EloquentTicketType::class;
+
+    public static function getModelLabel(): string
+    {
+        return __('tms-ui::tickets/ticket-type.resource.model_label');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('tms-ui::tickets/ticket-type.resource.plural_model_label');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('tms-ui::tickets/ticket-type.navigation.label');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('tms-ui::tickets/ticket-type.navigation.group');
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('incidents.incident-type.read');
+    }    
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\TextInput::make('code')
+                    ->label(__('tms-ui::tickets/ticket-type.form.fields.code.label')),
+                Forms\Components\TextInput::make('title')
+                    ->label(__('tms-ui::tickets/ticket-type.form.fields.title.label')),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->paginated([10, 25, 50, 100, 'all'])
+            ->defaultPaginationPageOption(100)
+            ->columns([
+                TextColumn::make('code')->label(__('tms-ui::tickets/ticket-type.table.columns.code.label')),
+                TextColumn::make('title')->label(__('tms-ui::tickets/ticket-type.table.columns.title.label')),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListTicketTypes::route('/'),
+            'create' => Pages\CreateTicketType::route('/create'),
+            'edit' => Pages\EditTicketType::route('/{record}/edit'),
+        ];
+    }
+}

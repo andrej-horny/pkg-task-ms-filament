@@ -1,8 +1,8 @@
 <?php
 
-namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
-use TmsUI\Filament\Resources\Activity\ActivityTemplateResource;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;

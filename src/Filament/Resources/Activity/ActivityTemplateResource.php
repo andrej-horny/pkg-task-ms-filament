@@ -1,10 +1,10 @@
 <?php
 
-namespace TmsUI\Filament\Resources\Activity;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity;
 
-use TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Forms\ActivityTemplateForm;
-use TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
-use TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Tables\ActivityTemplateTable;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Forms\ActivityTemplateForm;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Tables\ActivityTemplateTable;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Activities\EloquentActivityTemplate;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,8 +26,7 @@ class ActivityTemplateResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        // return __('pkg-task-ms-filament::activities/activity-template.navigation.label');
-        return __('pkg-task-ms-filament::tmp.g');
+        return __('tms-ui::activities/activity-template.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string

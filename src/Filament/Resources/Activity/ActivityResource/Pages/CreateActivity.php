@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Activity\ActivityResource\Pages;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityResource\Pages;
 
 use App\Filament\Resources\Activity\ActivityResource;
 use Filament\Actions;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Activity\TemplateGroupResource\Pages;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource\Pages;
 
-use App\Filament\Resources\Activity\TemplateGroupResource;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource;
 use Dpb\Package\TaskMS\Application\UseCase\Activities\UpdateActivityTemplateGroupUesCase;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;

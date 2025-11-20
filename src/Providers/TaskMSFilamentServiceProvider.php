@@ -1,6 +1,6 @@
 <?php
 
-namespace TmsUI\Providers;
+namespace Dpb\Package\TaskMSFilament\Providers;
 
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;

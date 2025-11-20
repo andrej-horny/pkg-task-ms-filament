@@ -1,6 +1,6 @@
 <?php
 
-namespace TmsUI\Providers;
+namespace Dpb\Package\TaskMSFilament\Providers;
 
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,7 +19,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 // resources
-use TmsUI\Filament\Resources;
+use Dpb\Package\TaskMSFilament\Filament\Resources;
 
 class TaskMSFilamentPanelProvider extends PanelProvider
 {
@@ -32,7 +32,13 @@ class TaskMSFilamentPanelProvider extends PanelProvider
             ->maxContentWidth(MaxWidth::Full)
             ->topNavigation()
             ->resources([
-                Resources\Activity\ActivityTemplateResource::class
+                // activities
+                // Resources\Activity\ActivityResource::class,
+                Resources\Activity\ActivityTemplateResource::class,
+                Resources\Activity\TemplateGroupResource::class,
+                // tasks
+                Resources\Task\TaskGroupResource::class,
+                Resources\Task\TaskResource::class,
             ])
             // ->discoverResources(in: 'Dpb/Package/TaskMSFilament/Resources', for: 'Dpb\\Package\\TaskMSFilament\\Filament\\Resources')
             // ->discoverPages(in: app_path('Filament/Fleet/Pages'), for: 'App\\Filament\\Fleet\\Pages')

@@ -1,9 +1,9 @@
 <?php
 
-namespace TmsUI\Filament\Resources\Activity;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity;
 
-use ActivityResource\Pages;
-use App\Filament\Resources\Activity\ActivityResource\Tables\ActivityAssignmentTable;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityResource\Pages;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityResource\Tables\ActivityTable;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Activities\EloquentActivity;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -53,8 +53,7 @@ class ActivityResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return ActivityAssignmentTable::make($table);
-        // return ActivityTable::make($table);
+        return ActivityTable::make($table);
     }
 
     public static function getRelations(): array

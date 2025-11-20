@@ -1,10 +1,10 @@
 <?php
 
-namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
 use Dpb\Package\TaskMS\Application\Activities\CreateActivityTemplateUesCase;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\Activities\ActivityTemplateMapper;
-use TmsUI\Filament\Resources\Activity\ActivityTemplateResource;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;

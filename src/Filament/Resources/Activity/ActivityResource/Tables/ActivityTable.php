@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Activity\ActivityResource\Tables;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityResource\Tables;
 
 use App\Filament\Imports\Activity\ActivityTemplateImporter;
 use App\Models\ActivityTemplateAssignment;

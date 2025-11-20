@@ -1,10 +1,10 @@
 <?php
 
-namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
 use App\Models\ActivityTemplateAssignment;
 use Dpb\Package\TaskMS\Application\UseCase\Activities\UpdateActivityTemplateUesCase;
-use TmsUI\Filament\Resources\Activity\ActivityTemplateResource;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;

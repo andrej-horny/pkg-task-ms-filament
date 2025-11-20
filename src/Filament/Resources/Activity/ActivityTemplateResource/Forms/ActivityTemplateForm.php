@@ -1,6 +1,6 @@
 <?php
 
-namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Forms;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Forms;
 
 use Dpb\Package\Fleet\Models\VehicleModel;
 use Filament\Forms;

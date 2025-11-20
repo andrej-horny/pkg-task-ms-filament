@@ -4,7 +4,7 @@
     "license": "proprietary",
     "autoload": {
         "psr-4": {
-            "TmsUI\\": "src/"
+            "Dpb\\Package\\TaskMSFilament\\": "src/"
         }
     },
     "authors": [
@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "TmsUI\\Providers\\TaskMSFilamentServiceProvider"
+                "Dpb\\Package\\TaskMSFilament\\Providers\\TaskMSFilamentServiceProvider"
             ]
         }
     }
