@@ -26,25 +26,25 @@ class ListTickets extends ListRecords
         return '';
     } 
 
-    public function getTabs(): array
-    {
-        $tabs = [];
+    // public function getTabs(): array
+    // {
+    //     $tabs = [];
 
-        // Default “all” tab
-        $tabs['all'] = Tab::make('Všetky');
+    //     // Default “all” tab
+    //     $tabs['all'] = Tab::make('Všetky');
 
-        // Dynamic tabs
-        foreach (TicketType::get() as $type) {
-            $tabs[$type->code] = Tab::make($type->title)
-                ->modifyQueryUsing(
-                    function (Builder $query) use ($type) {
-                        $query->whereHas('incident', function ($q) use ($type) {
-                            $q->byType($type->code);
-                        });
-                    }
-                );
-        }
+    //     // Dynamic tabs
+    //     foreach (TicketType::get() as $type) {
+    //         $tabs[$type->code] = Tab::make($type->title)
+    //             ->modifyQueryUsing(
+    //                 function (Builder $query) use ($type) {
+    //                     $query->whereHas('incident', function ($q) use ($type) {
+    //                         $q->byType($type->code);
+    //                     });
+    //                 }
+    //             );
+    //     }
 
-        return $tabs;
-    }
+    //     return $tabs;
+    // }
 }

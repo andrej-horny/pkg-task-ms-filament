@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Pages;
 
-use App\Application\Tasks\CreateTaskUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tasks\CreateTaskUesCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\TaskMapper;
 use Filament\Resources\Pages\CreateRecord;

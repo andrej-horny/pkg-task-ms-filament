@@ -5,12 +5,13 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource\Fo
 use Dpb\Package\TaskMSFilament\Filament\Components\VehiclePicker;
 use Carbon\Carbon;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tickets\EloquentTicketType;
 use Dpb\Package\Tickets\Models\TicketType;
 use Dpb\Package\Tickets\Models\TicketGroup;
 use Filament\Forms;
 use Filament\Forms\Form;
 
-class TicketAssignmentForm
+class TicketForm
 {
     public static function make(Form $form): Form
     {
@@ -23,18 +24,10 @@ class TicketAssignmentForm
     {
         return [
             // date
-            Forms\Components\DatePicker::make('incident.date')
+            Forms\Components\DatePicker::make('date')
                 ->label(__('tms-ui::tickets/ticket.form.fields.date'))
                 ->columnSpan(1)
                 ->default(Carbon::now()),
-            // ticket group
-            // Forms\Components\ToggleButtons::make('ticket_group_id')
-            //     ->label(__('tms-ui::tickets/ticket.form.fields.type'))
-            //     ->inline()
-            //     ->options(
-            //         fn() =>
-            //         TicketGroup::pluck('title', 'id')
-            //     ),
             // subject
             // Forms\Components\Select::make('subject_id')
             //     ->label(__('tickets/ticket.form.fields.subject'))
@@ -71,38 +64,39 @@ class TicketAssignmentForm
             //             ->get()
             //             ->mapWithKeys(fn(Vehicle $vehicle) => [$vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model->title]);
             //     })
-            VehiclePicker::make('subject_id')
-                ->label(__('tms-ui::tickets/ticket.form.fields.subject'))
-                ->columnSpan(1)
-                ->options(Vehicle::with(['codes', 'model'])
-                    ->get()
-                    ->mapWithKeys(function($vehicle) {
-                        return [
-                            $vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model?->title
-                        ];
-                    })
-                )
-                ->getOptionLabelFromRecordUsing(null)
-                ->getSearchResultsUsing(null)
-                ->preload()
-                ->searchable(),
+            // VehiclePicker::make('subject_id')
+            //     ->label(__('tms-ui::tickets/ticket.form.fields.subject'))
+            //     ->columnSpan(1)
+            //     ->options(Vehicle::with(['codes', 'model'])
+            //         ->get()
+            //         ->mapWithKeys(function($vehicle) {
+            //             return [
+            //                 $vehicle->id => $vehicle->code->code . ' - ' . $vehicle->model?->title
+            //             ];
+            //         })
+            //     )
+            //     ->getOptionLabelFromRecordUsing(null)
+            //     ->getSearchResultsUsing(null)
+            //     ->preload()
+            //     ->searchable(),
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 // ->required(false),
-            // incident type
-            Forms\Components\ToggleButtons::make('incident.type_id')
+            // ticket type
+            Forms\Components\ToggleButtons::make('type_id')
                 ->label(__('tms-ui::tickets/ticket.form.fields.type'))
                 ->inline()
                 ->columnSpan(1)
                 ->options(
                     fn() =>
-                    TicketType::pluck('title', 'id')
+                    EloquentTicketType::pluck('title', 'id')
                 ),
             // description
-            Forms\Components\Textarea::make('incident.description')
+            Forms\Components\Textarea::make('description')
                 ->label(__('tms-ui::tickets/ticket.form.fields.description'))
                 ->columnSpanFull()
                 ->rows(10)
                 ->cols(20),
         ];
+
     }
 }

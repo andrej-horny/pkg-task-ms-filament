@@ -2,9 +2,12 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Pages;
 
+use Dpb\Package\TaskMS\Application\UseCase\Tickets\UpdateTicketTypeUesCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 
 class EditTicketType extends EditRecord
 {
@@ -16,4 +19,15 @@ class EditTicketType extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('tms-ui::tickets/ticket-type.update_heading', ['title' => $this->record->title]);
+    }    
+
+    protected function handleRecordUpdate(Model $record, array $data): Model    
+    {       
+        $ticketType = app(UpdateTicketTypeUesCase::class)->execute($record->id, $data);
+        return $record;
+    }      
 }

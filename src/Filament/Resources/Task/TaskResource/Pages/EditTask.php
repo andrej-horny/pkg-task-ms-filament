@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Pages;
 
-use App\Application\Tasks\UpdateTaskUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tasks\UpdateTaskUesCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -30,7 +30,7 @@ class EditTask extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model    
     {       
-        $task = app(UpdateTaskUesCase::class)->execute($record->id, $data);
+        $task = app(updatetaskuescase::class)->execute($record->id, $data);
         return $record;
     }       
 }

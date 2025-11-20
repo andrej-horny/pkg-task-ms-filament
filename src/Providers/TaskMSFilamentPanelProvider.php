@@ -30,6 +30,7 @@ class TaskMSFilamentPanelProvider extends PanelProvider
             ->id('tms')                     // required
             ->path('tms')                   // URL path
             ->maxContentWidth(MaxWidth::Full)
+            ->breadcrumbs(false)
             ->topNavigation()
             ->resources([
                 // activities
@@ -39,6 +40,9 @@ class TaskMSFilamentPanelProvider extends PanelProvider
                 // tasks
                 Resources\Task\TaskGroupResource::class,
                 Resources\Task\TaskResource::class,
+                // tickets
+                Resources\Ticket\TicketResource::class,
+                Resources\Ticket\TicketTypeResource::class,
             ])
             // ->discoverResources(in: 'Dpb/Package/TaskMSFilament/Resources', for: 'Dpb\\Package\\TaskMSFilament\\Filament\\Resources')
             // ->discoverPages(in: app_path('Filament/Fleet/Pages'), for: 'App\\Filament\\Fleet\\Pages')

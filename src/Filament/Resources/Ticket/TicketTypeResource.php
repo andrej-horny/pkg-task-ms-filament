@@ -4,6 +4,7 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket;
 
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tickets\EloquentTicketType;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Pages;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Tables\TicketTypeTable;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -53,25 +54,26 @@ class TicketTypeResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->paginated([10, 25, 50, 100, 'all'])
-            ->defaultPaginationPageOption(100)
-            ->columns([
-                TextColumn::make('code')->label(__('tms-ui::tickets/ticket-type.table.columns.code.label')),
-                TextColumn::make('title')->label(__('tms-ui::tickets/ticket-type.table.columns.title.label')),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make()
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        return TicketTypeTable::make($table);
+        // return $table
+        //     ->paginated([10, 25, 50, 100, 'all'])
+        //     ->defaultPaginationPageOption(100)
+        //     ->columns([
+        //         TextColumn::make('code')->label(__('tms-ui::tickets/ticket-type.table.columns.code.label')),
+        //         TextColumn::make('title')->label(__('tms-ui::tickets/ticket-type.table.columns.title.label')),
+        //     ])
+        //     ->filters([
+        //         //
+        //     ])
+        //     ->actions([
+        //         Tables\Actions\EditAction::make(),
+        //         Tables\Actions\DeleteAction::make()
+        //     ])
+        //     ->bulkActions([
+        //         Tables\Actions\BulkActionGroup::make([
+        //             Tables\Actions\DeleteBulkAction::make(),
+        //         ]),
+        //     ]);
     }
 
     public static function getPages(): array

@@ -2,8 +2,9 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource\Pages;
 
+use Dpb\Package\TaskMS\Application\UseCase\Tickets\CreateTicketUesCase;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\Tickets\TicketMapper;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource;
-use Dpb\Package\TaskMSFilament\Services\TicketAssignmentRepository;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +20,7 @@ class CreateTicket extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        // return $this->incidentService->createTicket($data);
-        return app(TicketAssignmentRepository::class)->create($data);
+        $ticket = app(CreateTicketUesCase::class)->execute($data);
+        return app(TicketMapper::class)->toEloquent($ticket);
     }
 }
