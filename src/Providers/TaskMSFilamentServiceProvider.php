@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Providers;
+namespace TmsUI\Providers;
 
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -23,6 +23,6 @@ class TaskMSFilamentServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'pkg-task-ms-filament');
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'tms-ui');
     }    
 }

@@ -22,7 +22,7 @@ class EditTemplateGroup extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('activities/activity-template-group.update_heading');
+        return __('tms-ui::activities/activity-template-group.update_heading');
     }  
 
     protected function handleRecordUpdate(Model $record, array $data): Model    

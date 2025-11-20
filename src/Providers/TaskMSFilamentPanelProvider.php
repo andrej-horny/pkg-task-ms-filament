@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Providers;
+namespace TmsUI\Providers;
 
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,7 +19,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 // resources
-use Dpb\Package\TaskMSFilament\Filament\Resources;
+use TmsUI\Filament\Resources;
 
 class TaskMSFilamentPanelProvider extends PanelProvider
 {

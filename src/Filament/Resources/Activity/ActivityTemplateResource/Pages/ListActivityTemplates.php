@@ -1,8 +1,8 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
-use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource;
+use TmsUI\Filament\Resources\Activity\ActivityTemplateResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
@@ -20,7 +20,6 @@ class ListActivityTemplates extends ListRecords
 
     public function getTitle(): string | Htmlable
     {
-        // return __('activities/activity-template.list_heading');
-        return __('pkg-task-ms-filament::tmp.g');
+        return __('tms-ui::activities/activity-template.list_heading');
     }       
 }

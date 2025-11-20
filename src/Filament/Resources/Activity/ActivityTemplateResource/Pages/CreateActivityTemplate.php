@@ -1,10 +1,10 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
 use Dpb\Package\TaskMS\Application\Activities\CreateActivityTemplateUesCase;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\Activities\ActivityTemplateMapper;
-use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource;
+use TmsUI\Filament\Resources\Activity\ActivityTemplateResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +15,7 @@ class CreateActivityTemplate extends CreateRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('activities/activity-template.create_heading');
+        return __('tms-ui::activities/activity-template.create_heading');
     }     
 
     protected function handleRecordCreation(array $data): Model    

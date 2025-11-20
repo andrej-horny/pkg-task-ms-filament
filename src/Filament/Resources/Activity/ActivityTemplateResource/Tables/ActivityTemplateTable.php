@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Tables;
+namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Tables;
 
 use App\Filament\Imports\Activity\ActivityTemplateImporter;
 use App\Models\ActivityTemplateAssignment;
@@ -18,23 +18,23 @@ class ActivityTemplateTable
             ->defaultPaginationPageOption(100)
             ->columns([
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('activities/activity-template.table.columns.title.label'))
+                    ->label(__('tms-ui::activities/activity-template.table.columns.title.label'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('duration')
-                    ->label(__('activities/activity-template.table.columns.duration.label')),
+                    ->label(__('tms-ui::activities/activity-template.table.columns.duration.label')),
                 Tables\Columns\TextColumn::make('man_minutes')
-                    ->label(__('activities/activity-template.table.columns.man_minutes.label')),
+                    ->label(__('tms-ui::activities/activity-template.table.columns.man_minutes.label')),
                 Tables\Columns\IconColumn::make('is_divisible')
-                    ->label(__('activities/activity-template.table.columns.is_divisible.label'))
+                    ->label(__('tms-ui::activities/activity-template.table.columns.is_divisible.label'))
                     ->boolean(),
                 // Tables\Columns\IconColumn::make('is_standardised')
-                //     ->label(__('activities/activity-template.table.columns..label'))
+                //     ->label(__('tms-ui::activities/activity-template.table.columns..label'))
                 //     ->boolean(),
                 Tables\Columns\IconColumn::make('is_catalogised')
-                    ->label(__('activities/activity-template.table.columns.is_catalogised.label'))
+                    ->label(__('tms-ui::activities/activity-template.table.columns.is_catalogised.label'))
                     ->boolean(),
                 Tables\Columns\TextColumn::make('people')
-                    ->label(__('activities/activity-template.table.columns.people.label')),
+                    ->label(__('tms-ui::activities/activity-template.table.columns.people.label')),
                 // Tables\Columns\TextColumn::make('sa1')
                 //     ->label('sa1')
                 //     ->state(function($record, UnitRateService $svc) {                        

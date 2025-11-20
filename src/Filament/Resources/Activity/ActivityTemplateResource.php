@@ -1,10 +1,10 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity;
+namespace TmsUI\Filament\Resources\Activity;
 
-use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Forms\ActivityTemplateForm;
-use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
-use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Tables\ActivityTemplateTable;
+use TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Forms\ActivityTemplateForm;
+use TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+use TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Tables\ActivityTemplateTable;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Activities\EloquentActivityTemplate;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,7 +21,7 @@ class ActivityTemplateResource extends Resource
 
     public static function getPluralModelLabel(): string
     {
-        return __('activities/activity-template.resource.plural_model_label');
+        return __('tms-ui::activities/activity-template.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
@@ -32,7 +32,7 @@ class ActivityTemplateResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('activities/activity-template.navigation.group');
+        return __('tms-ui::activities/activity-template.navigation.group');
     }
 
     public static function getNavigationSort(): ?int

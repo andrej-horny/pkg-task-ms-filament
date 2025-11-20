@@ -20,6 +20,6 @@ class ListTemplateGroups extends ListRecords
 
     public function getTitle(): string | Htmlable
     {
-        return __('activities/activity-template-group.list_heading');
+        return __('tms-ui::activities/activity-template-group.list_heading');
     }      
 }

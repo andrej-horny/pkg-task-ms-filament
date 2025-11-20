@@ -18,22 +18,22 @@ class TemplateGroupResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('activities/activity-template-group.resource.model_label');
+        return __('tms-ui::activities/activity-template-group.resource.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('activities/activity-template-group.resource.plural_model_label');
+        return __('tms-ui::activities/activity-template-group.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('activities/activity-template-group.navigation.label');
+        return __('tms-ui::activities/activity-template-group.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('activities/activity-template-group.navigation.group');
+        return __('tms-ui::activities/activity-template-group.navigation.group');
     }
 
     public static function form(Form $form): Form

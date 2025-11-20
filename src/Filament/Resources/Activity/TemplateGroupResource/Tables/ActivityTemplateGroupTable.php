@@ -16,15 +16,15 @@ class ActivityTemplateGroupTable
             ->defaultPaginationPageOption(100)
             ->columns([
                 Tables\Columns\TextColumn::make('code')
-                    ->label(__('activities/activity-template-group.table.columns.code.label'))
+                    ->label(__('tms-ui::activities/activity-template-group.table.columns.code.label'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
-                    ->label(__('activities/activity-template-group.table.columns.title.label'))
+                    ->label(__('tms-ui::activities/activity-template-group.table.columns.title.label'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('parent.title')
-                    ->label(__('activities/activity-template-group.table.columns.parent.label')),
+                    ->label(__('tms-ui::activities/activity-template-group.table.columns.parent.label')),
                 Tables\Columns\TextColumn::make('description')
-                    ->label(__('activities/activity-template-group.table.columns.description.label')),
+                    ->label(__('tms-ui::activities/activity-template-group.table.columns.description.label')),
 
             ])
             ->filters([

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity;
+namespace TmsUI\Filament\Resources\Activity;
 
 use ActivityResource\Pages;
 use App\Filament\Resources\Activity\ActivityResource\Tables\ActivityAssignmentTable;
@@ -15,22 +15,22 @@ class ActivityResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('activities/activity.resource.model_label');
+        return __('tms-ui::activities/activity.resource.model_label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('activities/activity.resource.plural_model_label');
+        return __('tms-ui::activities/activity.resource.plural_model_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('activities/activity.navigation.label');
+        return __('tms-ui::activities/activity.navigation.label');
     }
 
     public static function getNavigationGroup(): ?string
     {
-        return __('activities/activity.navigation.group');
+        return __('tms-ui::activities/activity.navigation.group');
     }
 
     public static function getNavigationSort(): ?int

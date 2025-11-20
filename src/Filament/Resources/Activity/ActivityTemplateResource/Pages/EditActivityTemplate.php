@@ -1,10 +1,10 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
+namespace TmsUI\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
 use App\Models\ActivityTemplateAssignment;
 use Dpb\Package\TaskMS\Application\UseCase\Activities\UpdateActivityTemplateUesCase;
-use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource;
+use TmsUI\Filament\Resources\Activity\ActivityTemplateResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -23,7 +23,7 @@ class EditActivityTemplate extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('activities/activity-template.update_heading');
+        return __('tms-ui::activities/activity-template.update_heading');
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
