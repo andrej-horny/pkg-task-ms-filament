@@ -12,8 +12,17 @@ class TaskMSFilamentServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('pkg-task-ms-filament')
+            ->publishesServiceProvider('TaskMSFilamentPanelProvider')
+            ->hasTranslations()
             ->hasInstallCommand(function (InstallCommand $command) {
-                $command->publishConfigFile();
+                $command
+                    ->publishConfigFile()
+                    ->copyAndRegisterServiceProviderInApp();
             });
+    }
+
+    public function packageBooted(): void
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'pkg-task-ms-filament');
     }    
 }

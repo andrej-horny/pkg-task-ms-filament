@@ -1,5 +1,5 @@
 {
-    "name": "andrej-horny/pkg-tasks-ms-filament",
+    "name": "andrej-horny/pkg-task-ms-filament",
     "type": "package",
     "license": "proprietary",
     "autoload": {
