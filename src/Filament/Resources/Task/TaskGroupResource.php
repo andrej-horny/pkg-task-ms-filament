@@ -5,7 +5,7 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource\Forms\TaskGroupForm;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource\Pages;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource\Tables\TaskGroupTable;
-use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\EloquentTaskGroup;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tasks\EloquentTaskGroup;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;

@@ -3,7 +3,7 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource\Pages;
 
 use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource;
-use Dpb\Package\TaskMS\Application\UseCase\Activities\CreateActivityTemplateGroupUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Activities\CreateActivityTemplateGroupUseCase;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\Activities\ActivityTemplateGroupMapper;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -20,7 +20,7 @@ class CreateTemplateGroup extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model    
     {       
-        $template = app(CreateActivityTemplateGroupUesCase::class)->execute($data);
+        $template = app(CreateActivityTemplateGroupUseCase::class)->execute($data);
         return app(ActivityTemplateGroupMapper::class)->toEloquent($template);
     }      
 }

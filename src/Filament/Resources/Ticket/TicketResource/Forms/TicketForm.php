@@ -81,7 +81,25 @@ class TicketForm
             //     ->searchable(),
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 // ->required(false),
-            // ticket type
+                // subject
+            Forms\Components\Select::make('subject')
+                ->label(__('tms-ui::tickets/ticket.form.fields.subject'))
+                ->columnSpan(1)
+                ->options(Vehicle::whereNotNull('code_1')
+                    ->get()
+                    ->mapWithKeys(function($vehicle) {
+                        return [
+                            $vehicle->id => $vehicle->code_1
+                        ];
+                    })
+                )
+                // ->getOptionLabelFromRecordUsing(null)
+                // ->getSearchResultsUsing(null)
+                ->preload()
+                ->searchable()
+                // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                ->required(false),                
+            // ticket type            
             Forms\Components\ToggleButtons::make('type_id')
                 ->label(__('tms-ui::tickets/ticket.form.fields.type'))
                 ->inline()

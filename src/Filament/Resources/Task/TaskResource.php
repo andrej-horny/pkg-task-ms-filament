@@ -3,24 +3,12 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task;
 
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Pages;
-use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\RelationManagers;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Tables\TaskTable;
-use App\Models\Task\Task;
-use Dpb\Package\Fleet\Models\MaintenanceGroup;
-use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentMaintenanceGroup;
-use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\EloquentTask;
-use Filament\Forms;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tasks\EloquentTask;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Forms\TaskForm;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Carbon;
 
 class TaskResource extends Resource
 {
@@ -57,25 +45,7 @@ class TaskResource extends Resource
     // }
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                DatePicker::make('date')->default(Carbon::now()),
-                TextInput::make('title'),
-                TextInput::make('description'),
-                Select::make('group')
-                    ->relationship('group', 'title')
-                    ->searchable()
-                    ->preload(),
-
-                Forms\Components\ToggleButtons::make('maintenanceGroup')
-                    ->label(__('tickets/ticket.form.fields.assigned_to'))
-                    ->columnSpan(2)
-                    ->options(
-                        fn() =>
-                        EloquentMaintenanceGroup::pluck('code', 'id')
-                    )
-                    ->inline(),
-            ]);
+        return TaskForm::make($form);
     }
 
     public static function table(Table $table): Table

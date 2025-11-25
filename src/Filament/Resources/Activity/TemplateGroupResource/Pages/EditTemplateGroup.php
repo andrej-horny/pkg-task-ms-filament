@@ -3,7 +3,7 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource\Pages;
 
 use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\TemplateGroupResource;
-use Dpb\Package\TaskMS\Application\UseCase\Activities\UpdateActivityTemplateGroupUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Activities\UpdateActivityTemplateGroupUseCase;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -27,7 +27,7 @@ class EditTemplateGroup extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model    
     {       
-        $templateGroup = app(UpdateActivityTemplateGroupUesCase::class)->execute($record->id, $data);
+        $templateGroup = app(UpdateActivityTemplateGroupUseCase::class)->execute($record->id, $data);
         return $record;
     }          
 }

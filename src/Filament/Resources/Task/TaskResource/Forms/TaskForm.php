@@ -3,15 +3,17 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Forms;
 
 use Dpb\Package\TaskMSFilament\Filament\Components\DepartmentPicker;
-use Dpb\Package\TaskMSFilament\Filament\Resources\Fleet\Vehicle\VehicleResource\Forms\VehiclePicker;
-use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\ActivityRepeater;
-use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\MaterialRepeater;
-use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\ServiceRepeater;
+// use Dpb\Package\TaskMSFilament\Filament\Resources\Fleet\Vehicle\VehicleResource\Forms\VehiclePicker;
+// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\ActivityRepeater;
+// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\MaterialRepeater;
+// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\ServiceRepeater;
 use App\Services\Activity\Activity\WorkService;
 use App\Services\TS\ActivityService;
 use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentMaintenanceGroup;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentVehicle;
 use Dpb\Package\Tickets\Models\Ticket;
 use Dpb\Package\Tickets\Models\TicketSource;
 use Filament\Forms;
@@ -25,18 +27,18 @@ class TaskForm
             ->columns(7)
             ->schema([
                 Forms\Components\DatePicker::make('date')
-                    ->label(__('tickets/ticket.form.fields.date'))
+                    ->label(__('tms-ui::tasks/task.form.fields.date'))
                     ->columnSpan(1)
                     ->default(now()),
                 // VehiclePicker::make('subject')
-                //     ->label(__('tickets/ticket.form.fields.subject'))
+                //     ->label(__('tms-ui::tasks/task.form.fields.subject'))
                 //     ->columnSpan(1)
                 //     // ->relationship('department', 'title')
                 //     ->getOptionLabelFromRecordUsing(null)
                 //     ->getSearchResultsUsing(null)
                 //     ->searchable(),
                 // Forms\Components\Select::make('subject_id')
-                //     ->label(__('tickets/ticket.form.fields.subject'))
+                //     ->label(__('tms-ui::tasks/task.form.fields.subject'))
                 //     ->columnSpan(3)
                 //     // ->relationship('source', 'title', null, true)
                 //     ->options(fn() => Vehicle::pluck('code_1', 'id'))
@@ -46,24 +48,48 @@ class TaskForm
                 //     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 //     ->required(false),
                 // subject
-                VehiclePicker::make('subject_id')
-                    ->label(__('tickets/ticket.form.fields.subject'))
-                    ->getOptionLabelFromRecordUsing(null)
-                    ->getSearchResultsUsing(null)
-                    ->searchable(),
-
+                // VehiclePicker::make('subject_id')
+                //     ->label(__('tms-ui::tasks/task.form.fields.subject'))
+                //     ->getOptionLabelFromRecordUsing(null)
+                //     ->getSearchResultsUsing(null)
+                //     ->searchable(),
+            Forms\Components\Select::make('subject')
+                ->label(__('tms-ui::tasks/task.form.fields.subject'))
+                ->columnSpan(1)
+                ->options(EloquentVehicle::whereNotNull('code_1')
+                    ->get()
+                    ->mapWithKeys(function($vehicle) {
+                        return [
+                            $vehicle->id => $vehicle->code_1
+                        ];
+                    })
+                )
+                // ->getOptionLabelFromRecordUsing(null)
+                // ->getSearchResultsUsing(null)
+                ->preload()
+                ->searchable()
+                // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                ->required(false), 
                 // group
-                Forms\Components\Select::make('group_id')
-                    ->label(__('tickets/ticket.form.fields.group'))
-                    ->relationship('group', 'title')
-                    ->live(),
-                // Forms\Components\TextInput::make('title')
-                //     ->columnSpan(3)
-                //     ->label(__('tickets/ticket.form.fields.title')),
+                // Forms\Components\Select::make('group_id')
+                //     ->label(__('tms-ui::tasks/task.form.fields.group'))
+                //     ->relationship('group', 'title')
+                //     ->live(),
+                Forms\Components\ToggleButtons::make('maintenanceGroup')
+                    ->label(__('tms-ui::tasks/task.form.fields.assigned_to'))
+                    ->columnSpan(2)
+                    ->options(
+                        fn() =>
+                        EloquentMaintenanceGroup::pluck('code', 'id')
+                    )
+                    ->inline(),                    
+                Forms\Components\TextInput::make('title')
+                    ->columnSpan(3)
+                    ->label(__('tms-ui::tasks/task.form.fields.title')),
                 // ->readOnly(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id),
                 // Forms\Components\ToggleButtons::make('source_id')
-                //     ->label(__('tickets/ticket.form.fields.source'))
+                //     ->label(__('tms-ui::tasks/task.form.fields.source'))
                 //     ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 //     // ->relationship('source', 'title')
                 //     ->inline()
@@ -76,7 +102,7 @@ class TaskForm
                 //     ->searchable()
                 //     ->required(false),
                 Forms\Components\Textarea::make('description')
-                    ->label(__('tickets/ticket.form.fields.description'))
+                    ->label(__('tms-ui::tasks/task.form.fields.description'))
                     ->columnSpanFull(),
                 // Forms\Components\Select::make('parent_id')
                 //     ->relationship('parent', 'title', null, true)
@@ -85,7 +111,7 @@ class TaskForm
                 //     ->required(false),
                 //department
                 // DepartmentPicker::make('department_id')
-                //     ->label(__('tickets/ticket.form.fields.department'))
+                //     ->label(__('tms-ui::tasks/task.form.fields.department'))
                 //     // ->relationship('department', 'title')
                 //     ->getOptionLabelFromRecordUsing(null)
                 //     ->getSearchResultsUsing(null)
@@ -122,7 +148,7 @@ class TaskForm
                 //     ->tabs([
                 //         // activities
                 //         Forms\Components\Tabs\Tab::make('activities')
-                //             ->label(__('tickets/ticket.form.tabs.activities'))
+                //             ->label(__('tms-ui::tasks/task.form.tabs.activities'))
                 //             ->badge(3)
                 //             ->icon('heroicon-m-wrench')
                 //             ->schema([
@@ -131,7 +157,7 @@ class TaskForm
                 //             ]),
                 //         // materials
                 //         Forms\Components\Tabs\Tab::make('materials')
-                //             ->label(__('tickets/ticket.form.tabs.materials'))
+                //             ->label(__('tms-ui::tasks/task.form.tabs.materials'))
                 //             ->icon('heroicon-m-rectangle-stack')
                 //             ->badge(2)
                 //             ->schema([
@@ -140,7 +166,7 @@ class TaskForm
                 //             ]),
                 //         // services
                 //         Forms\Components\Tabs\Tab::make('services')
-                //             ->label(__('tickets/ticket.form.tabs.services'))
+                //             ->label(__('tms-ui::tasks/task.form.tabs.services'))
                 //             ->badge(0)
                 //             ->icon('heroicon-m-user-group')
                 //             ->schema([

@@ -43,6 +43,12 @@ class TaskMSFilamentPanelProvider extends PanelProvider
                 // tickets
                 Resources\Ticket\TicketResource::class,
                 Resources\Ticket\TicketTypeResource::class,
+                // fleet
+                Resources\Fleet\MaintenanceGroupResource::class,
+                Resources\Fleet\VehicleBrandResource::class,
+                Resources\Fleet\VehicleTypeResource::class,
+                Resources\Fleet\VehicleModelResource::class,
+
             ])
             // ->discoverResources(in: 'Dpb/Package/TaskMSFilament/Resources', for: 'Dpb\\Package\\TaskMSFilament\\Filament\\Resources')
             // ->discoverPages(in: app_path('Filament/Fleet/Pages'), for: 'App\\Filament\\Fleet\\Pages')

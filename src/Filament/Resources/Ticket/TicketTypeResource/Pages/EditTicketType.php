@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Pages;
 
-use Dpb\Package\TaskMS\Application\UseCase\Tickets\UpdateTicketTypeUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tickets\UpdateTicketTypeUseCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -27,7 +27,7 @@ class EditTicketType extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model    
     {       
-        $ticketType = app(UpdateTicketTypeUesCase::class)->execute($record->id, $data);
+        $ticketType = app(UpdateTicketTypeUseCase::class)->execute($record->id, $data);
         return $record;
     }      
 }

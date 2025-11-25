@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Tables;
 
-use Dpb\Package\TaskMSFilament\Filament\Components\VehiclePicker;
+// use Dpb\Package\TaskMSFilament\Filament\Components\VehiclePicker;
 use Dpb\Package\Fleet\Models\MaintenanceGroup;
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\tasks\Models\taskSource;
@@ -60,43 +60,43 @@ class TaskTableFilters
             //             );
             //     }),
             // subject
-            Tables\Filters\Filter::make('subject')
-                ->form([
-                    VehiclePicker::make('subject')
-                        ->options(
-                            Vehicle::query()
-                                ->has('codes')
-                                ->with(['codes' => fn($q) => $q->orderByDesc('date_from'), 'model'])
-                                ->get()
-                                ->mapWithKeys(function (Vehicle $vehicle) {
-                                    $latestCode = $vehicle->codes->first();
-                                    if (!$latestCode) {
-                                        return []; // important: return empty array if no code
-                                    }
-                                    return [
-                                        $vehicle->id => $latestCode->code,
-                                    ];
-                                })
-                                ->toArray()
-                        )
-                        ->getSearchResultsUsing(null)
-                        ->getOptionLabelFromRecordUsing(null)
-                        ->searchable()
-                        ->multiple()
-                        ->label(__('tms-ui::tasks/task.table.filters.subject')),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query
-                        ->when(
-                            $data['subject'],
-                            fn(Builder $query, $subject): Builder =>
-                            $query->whereMorphedTo(
-                                'subject',
-                                app(Vehicle::class)->getMorphClass(),
-                            )
-                                ->whereIn('subject_id', $subject)
-                        );
-                }),
+            // Tables\Filters\Filter::make('subject')
+            //     ->form([
+            //         VehiclePicker::make('subject')
+            //             ->options(
+            //                 Vehicle::query()
+            //                     ->has('codes')
+            //                     ->with(['codes' => fn($q) => $q->orderByDesc('date_from'), 'model'])
+            //                     ->get()
+            //                     ->mapWithKeys(function (Vehicle $vehicle) {
+            //                         $latestCode = $vehicle->codes->first();
+            //                         if (!$latestCode) {
+            //                             return []; // important: return empty array if no code
+            //                         }
+            //                         return [
+            //                             $vehicle->id => $latestCode->code,
+            //                         ];
+            //                     })
+            //                     ->toArray()
+            //             )
+            //             ->getSearchResultsUsing(null)
+            //             ->getOptionLabelFromRecordUsing(null)
+            //             ->searchable()
+            //             ->multiple()
+            //             ->label(__('tms-ui::tasks/task.table.filters.subject')),
+            //     ])
+                // ->query(function (Builder $query, array $data): Builder {
+                //     return $query
+                //         ->when(
+                //             $data['subject'],
+                //             fn(Builder $query, $subject): Builder =>
+                //             $query->whereMorphedTo(
+                //                 'subject',
+                //                 app(Vehicle::class)->getMorphClass(),
+                //             )
+                //                 ->whereIn('subject_id', $subject)
+                //         );
+                // }),
             // source
             Tables\Filters\SelectFilter::make('task_source_id')
                 ->relationship('task.source', 'title')

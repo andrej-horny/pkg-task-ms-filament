@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource\Pages;
 
-use Dpb\Package\TaskMS\Application\UseCase\Tickets\UpdateTicketUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tickets\UpdateTicketUseCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -37,8 +37,8 @@ class EditTicket extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        dd($this->getRedirectUrl());
-        $ticket = app(UpdateTicketUesCase::class)->execute($record->id, $data);
+        // dd($this->getRedirectUrl());
+        $ticket = app(UpdateTicketUseCase::class)->execute($record->id, $data);
         return $record;
     }
 }

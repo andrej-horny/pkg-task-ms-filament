@@ -3,7 +3,7 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource\Pages;
 
 use App\Models\ActivityTemplateAssignment;
-use Dpb\Package\TaskMS\Application\UseCase\Activities\UpdateActivityTemplateUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Activities\UpdateActivityTemplateUseCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Activity\ActivityTemplateResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -36,7 +36,7 @@ class EditActivityTemplate extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model    
     {       
-        $template = app(UpdateActivityTemplateUesCase::class)->execute($record->id, $data);
+        $template = app(UpdateActivityTemplateUseCase::class)->execute($record->id, $data);
         return $record;
     }       
 }

@@ -3,7 +3,7 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource\Pages;
 
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource;
-use Dpb\Package\TaskMS\Application\UseCase\Tasks\UpdateTaskGroupUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tasks\UpdateTaskGroupUseCase;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -27,7 +27,7 @@ class EditTaskGroup extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model    
     {       
-        $taskGroup = app(UpdateTaskGroupUesCase::class)->execute($record->id, $data);
+        $taskGroup = app(UpdateTaskGroupUseCase::class)->execute($record->id, $data);
         return $record;
     }       
 }

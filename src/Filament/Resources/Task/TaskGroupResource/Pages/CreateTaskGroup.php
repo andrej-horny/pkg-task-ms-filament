@@ -3,7 +3,7 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource\Pages;
 
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource;
-use Dpb\Package\TaskMS\Application\UseCase\Tasks\CreateTaskGroupUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tasks\CreateTaskGroupUseCase;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\TaskGroupMapper;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -20,7 +20,7 @@ class CreateTaskGroup extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model    
     {       
-        $taskGroup = app(CreateTaskGroupUesCase::class)->execute($data);
+        $taskGroup = app(CreateTaskGroupUseCase::class)->execute($data);
         return app(TaskGroupMapper::class)->toEloquent($taskGroup);
     }    
 }

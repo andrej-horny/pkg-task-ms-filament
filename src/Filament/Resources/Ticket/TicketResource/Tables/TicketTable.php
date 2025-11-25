@@ -4,6 +4,7 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource\Ta
 
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class TicketTable
 {
@@ -23,7 +24,7 @@ class TicketTable
                 Tables\Columns\TextColumn::make('date')
                     ->label(__('tms-ui::tickets/ticket.table.columns.date'))
                     ->date(),
-                Tables\Columns\TextColumn::make('subject.code.code')
+                Tables\Columns\TextColumn::make('subjectLabel')
                     ->label(__('tms-ui::tickets/ticket.table.columns.subject')),
                 // ->state(fn(Ticket $record, TicketAssignment $incidentAssignment) => $incidentAssignment->whereBelongsTo($record)->first()?->subject?->code?->code),
                 Tables\Columns\TextColumn::make('description')
@@ -42,7 +43,8 @@ class TicketTable
                 Tables\Actions\CreateAction::make()
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->successRedirectUrl(route('filament.tms.resources.ticket.tickets.index')),
                 //     ->mutateRecordDataUsing(function (
                 //         $record,
                 //         array $data,
@@ -62,6 +64,5 @@ class TicketTable
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource\Tables;
 
-use Dpb\Package\TaskMSFilament\Dpb\Package\TaskMSFilamentlication\Tasks\CreateTaskFromTicketUesCase;
+use Dpb\Package\TaskMSFilament\Dpb\Package\TaskMSFilamentlication\Tasks\CreateTaskFromTicketUseCase;
 use Dpb\Package\TaskMSFilament\Models\TicketAssignment;
 use Filament\Tables\Actions\Action;
 
@@ -13,7 +13,7 @@ class CreateTaskAction
         return Action::make($uri)
             ->label(__('tms-ui::tickets/ticket.table.actions.create_ticket'))
             ->button()
-            ->action(function (TicketAssignment $record, CreateTaskFromTicketUesCase $useCase) {
+            ->action(function (TicketAssignment $record, CreateTaskFromTicketUseCase $useCase) {
                 $useCase->execute($record);
             });
     }

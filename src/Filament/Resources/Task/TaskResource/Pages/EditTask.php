@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Pages;
 
-use Dpb\Package\TaskMS\Application\UseCase\Tasks\UpdateTaskUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tasks\UpdateTaskUseCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -23,14 +23,15 @@ class EditTask extends EditRecord
     {
         // maintenance group / assigned to
         $data['maintenanceGroup'] = $this->record->assigned_to_id;
+        //
+        $data['subject'] = $this->record->subject_id;
         // dd($activities);
         return $data;
     }
 
-
     protected function handleRecordUpdate(Model $record, array $data): Model    
     {       
-        $task = app(updatetaskuescase::class)->execute($record->id, $data);
+        $task = app(UpdateTaskUseCase::class)->execute($record->id, $data);
         return $record;
     }       
 }

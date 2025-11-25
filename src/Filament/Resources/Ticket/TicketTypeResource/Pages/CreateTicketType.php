@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Pages;
 
-use Dpb\Package\TaskMS\Application\UseCase\Tickets\CreateTicketTypeUesCase;
+use Dpb\Package\TaskMS\Application\UseCase\Tickets\CreateTicketTypeUseCase;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\Tickets\TicketTypeMapper;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource;
 use Filament\Resources\Pages\CreateRecord;
@@ -20,7 +20,7 @@ class CreateTicketType extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model    
     {       
-        $ticketType = app(CreateTicketTypeUesCase::class)->execute($data);
+        $ticketType = app(CreateTicketTypeUseCase::class)->execute($data);
         return app(TicketTypeMapper::class)->toEloquent($ticketType);
     }     
 }
