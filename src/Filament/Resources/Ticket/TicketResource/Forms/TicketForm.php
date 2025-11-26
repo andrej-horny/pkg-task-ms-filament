@@ -5,6 +5,7 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketResource\Fo
 use Dpb\Package\TaskMSFilament\Filament\Components\VehiclePicker;
 use Carbon\Carbon;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentVehicle;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tickets\EloquentTicketType;
 use Dpb\Package\Tickets\Models\TicketType;
 use Dpb\Package\Tickets\Models\TicketGroup;
@@ -82,10 +83,10 @@ class TicketForm
                 // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
                 // ->required(false),
                 // subject
-            Forms\Components\Select::make('subject')
+            Forms\Components\Select::make('subject_id')
                 ->label(__('tms-ui::tickets/ticket.form.fields.subject'))
                 ->columnSpan(1)
-                ->options(Vehicle::whereNotNull('code_1')
+                ->options(EloquentVehicle::whereNotNull('code_1')
                     ->get()
                     ->mapWithKeys(function($vehicle) {
                         return [

@@ -3,7 +3,8 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Fleet\MaintenanceGroupResource\Pages;
 
 use Dpb\Package\TaskMSFilament\Filament\Resources\Fleet\MaintenanceGroupResource;
-use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Fleet\Repositories\VehicleRepositoryInterface;
+use Dpb\Package\TaskMS\Application\UseCase\Fleet\UpdateMaintenanceGroupUseCase;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
@@ -23,22 +24,23 @@ class EditMaintenanceGroup extends EditRecord
     public function getTitle(): string | Htmlable
     {
         return __('tms-ui::fleet/maintenance-group.form.update_heading', ['title' => $this->record->code]);
-    }  
-    
-    // protected function mutateFormDataBeforeFill(array $data): array
-    // {
-    //     // vehicles
-    //     $data['vehicles'] = $this->record->with(['vehicles'])->vehicles->pluck('id')->toArray();
-    //     dd($this->record->vehicles);
+    }
 
-    //     return $data;
-    // }
-
-    protected function handleRecordUpdate(Model $record, array $data): Model
+    protected function mutateFormDataBeforeFill(array $data): array
     {
-        Vehicle::whereIn('id', $data['vehicles'])->update(['maintenance_group_id' => $record->id]);
+        // vehicles
+        $vehicleRepo = app(VehicleRepositoryInterface::class);
+        $data['vehicles'] = array_map(
+            fn($vehicle) => $vehicle->id(),
+            $vehicleRepo->byMaintenanceGroup($this->record->code)
+        );
 
-        $record->update($data);
+        return $data;
+    }
+
+    protected function handleRecordUpdate(Model $record, array $data): Model    
+    {       
+        $maintenanceGroup = app(UpdateMaintenanceGroupUseCase::class)->execute($record->id, $data);
         return $record;
-    }     
+    }  
 }

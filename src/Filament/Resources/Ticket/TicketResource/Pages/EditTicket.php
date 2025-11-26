@@ -25,19 +25,8 @@ class EditTicket extends EditRecord
         return __('tms-ui::tickets/ticket.update_heading', ['title' => $this->record->id]);
     }
 
-    // protected function mutateFormDataBeforeFill(array $data): array
-    // {
-    //     // $data['subject_id'] = $this->record->subject_id;
-    //     // $data['incident']['date'] = $this->record->incident->date;
-    //     // $data['incident']['description'] = $this->record->incident->description;
-    //     // $data['incident']['type_id'] = $this->record->incident->type_id;
-    //     // dd($data);
-    //     return $data;
-    // }
-
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        // dd($this->getRedirectUrl());
         $ticket = app(UpdateTicketUseCase::class)->execute($record->id, $data);
         return $record;
     }

@@ -22,9 +22,9 @@ class EditTask extends EditRecord
     protected function mutateFormDataBeforeFill(array $data): array
     {
         // maintenance group / assigned to
-        $data['maintenanceGroup'] = $this->record->assigned_to_id;
+        $data['assigned_to_id'] = $this->record->assigned_to_id;
         //
-        $data['subject'] = $this->record->subject_id;
+        $data['subject_id'] = $this->record->subject_id;
         // dd($activities);
         return $data;
     }

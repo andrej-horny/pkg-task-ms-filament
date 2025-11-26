@@ -43,11 +43,18 @@ class TaskMSFilamentPanelProvider extends PanelProvider
                 // tickets
                 Resources\Ticket\TicketResource::class,
                 Resources\Ticket\TicketTypeResource::class,
+                // inspections
+                Resources\Inspection\InspectionResource::class,
+                Resources\Inspection\InspectionTemplateGroupResource::class,
+                Resources\Inspection\InspectionTemplateResource::class,
+                Resources\Inspection\UpcomingInspectionResource::class,
                 // fleet
                 Resources\Fleet\MaintenanceGroupResource::class,
+                Resources\Fleet\VehicleResource::class,
                 Resources\Fleet\VehicleBrandResource::class,
-                Resources\Fleet\VehicleTypeResource::class,
+                Resources\Fleet\VehicleGroupResource::class,
                 Resources\Fleet\VehicleModelResource::class,
+                Resources\Fleet\VehicleTypeResource::class,
 
             ])
             // ->discoverResources(in: 'Dpb/Package/TaskMSFilament/Resources', for: 'Dpb\\Package\\TaskMSFilament\\Filament\\Resources')

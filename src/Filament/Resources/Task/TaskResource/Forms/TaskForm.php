@@ -53,7 +53,7 @@ class TaskForm
                 //     ->getOptionLabelFromRecordUsing(null)
                 //     ->getSearchResultsUsing(null)
                 //     ->searchable(),
-            Forms\Components\Select::make('subject')
+            Forms\Components\Select::make('subject_id')
                 ->label(__('tms-ui::tasks/task.form.fields.subject'))
                 ->columnSpan(1)
                 ->options(EloquentVehicle::whereNotNull('code_1')
@@ -75,14 +75,16 @@ class TaskForm
                 //     ->label(__('tms-ui::tasks/task.form.fields.group'))
                 //     ->relationship('group', 'title')
                 //     ->live(),
-                Forms\Components\ToggleButtons::make('maintenanceGroup')
+                // assigned to
+                Forms\Components\ToggleButtons::make('assigned_to_id')
                     ->label(__('tms-ui::tasks/task.form.fields.assigned_to'))
                     ->columnSpan(2)
                     ->options(
                         fn() =>
                         EloquentMaintenanceGroup::pluck('code', 'id')
                     )
-                    ->inline(),                    
+                    ->inline(),        
+                    // title            
                 Forms\Components\TextInput::make('title')
                     ->columnSpan(3)
                     ->label(__('tms-ui::tasks/task.form.fields.title')),

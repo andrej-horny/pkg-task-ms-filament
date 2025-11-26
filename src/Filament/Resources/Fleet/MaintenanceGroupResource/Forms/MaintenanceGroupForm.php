@@ -4,6 +4,9 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Fleet\MaintenanceGroupRe
 
 use Dpb\Package\Fleet\Models\Vehicle;
 use Dpb\Package\Fleet\Models\VehicleType;
+use Dpb\Package\Fleet\Repositories\VehicleTypeRepositoryInterface;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentVehicle;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentVehicleType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -35,7 +38,7 @@ class MaintenanceGroupForm
             Forms\Components\ToggleButtons::make('vehicle_type_id')
                 ->label(__('tms-ui::fleet/maintenance-group.form.fields.vehicle_type'))
                 ->columnSpan(4)
-                ->options(fn() => VehicleType::pluck('title', 'id'))
+                ->options(fn() => EloquentVehicleType::pluck('title', 'id'))
                 ->inline()
                 ->live(),
             // description
@@ -45,15 +48,14 @@ class MaintenanceGroupForm
             // vehicels
             Forms\Components\CheckboxList::make('vehicles')
                 ->label(__('tms-ui::fleet/maintenance-group.form.fields.vehicles'))
-                ->options(function (Get $get) {
-                    $type = $get('vehicle_type_id');
-                    return Vehicle::with('codes')->whereHas('model', function ($q) use ($type) {
-                        $q->where('type_id', '=', $type);
-                    })
-                    ->get()
-                    ->mapWithKeys(fn ($vehicle) => [
-                        $vehicle->id => $vehicle->code->code
-                    ]);
+                ->options(function (Get $get, VehicleTypeRepositoryInterface $vtRepo) {
+                    $typeCode = $vtRepo->findById($get('vehicle_type_id'))->code();
+                    return EloquentVehicle::whereNotNull('code_1')
+                        ->byType($typeCode) 
+                        ->get()
+                        ->mapWithKeys(fn($vehicle) => [
+                            $vehicle->id => $vehicle->subjectLabel()
+                        ]);
                 })
                 ->searchable()
                 ->bulkToggleable(true)
