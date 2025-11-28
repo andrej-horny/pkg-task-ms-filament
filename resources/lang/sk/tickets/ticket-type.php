@@ -6,21 +6,21 @@ return [
     'update_heading' => 'Upraviť typ udalosti: :title',
     'form' => [
         'fields' => [
-            'code' => [
+            'uri' => [
                 'label' => 'Kód',
-                'helper' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
+                'hint' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
-            'title' => ['label' => 'Názov'],
+            'title' => 'Názov',
         ],
     ],
     'table' => [
         'heading' => 'Typy udalostí',
         'empty_state_heading' => 'Žiadne typy udalostí na zobrazenie',
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'code' => ['label' => 'Kód'],
-            'title' => ['label' => 'Názov'],
+            'id' => 'ID',
+            'uri' => 'Kód',
+            'title' => 'Názov',
         ],
     ],
     'navigation' => [

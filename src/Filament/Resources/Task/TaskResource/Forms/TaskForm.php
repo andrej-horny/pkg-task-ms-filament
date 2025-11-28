@@ -4,20 +4,25 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Forms;
 
 use Dpb\Package\TaskMSFilament\Filament\Components\DepartmentPicker;
 // use Dpb\Package\TaskMSFilament\Filament\Resources\Fleet\Vehicle\VehicleResource\Forms\VehiclePicker;
-// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\ActivityRepeater;
-// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\MaterialRepeater;
-// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TicketResource\Components\ServiceRepeater;
+// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TaskResource\Components\ActivityRepeater;
+// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TaskResource\Components\MaterialRepeater;
+// use Dpb\Package\TaskMSFilament\Filament\Resources\TS\TaskResource\Components\ServiceRepeater;
 use App\Services\Activity\Activity\WorkService;
 use App\Services\TS\ActivityService;
 use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
 use Dpb\Package\Fleet\Models\Vehicle;
+use Dpb\Package\Fleet\Repositories\MaintenanceGroupRepositoryInterface;
+use Dpb\Package\Fleet\Repositories\VehicleRepositoryInterface;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentMaintenanceGroup;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Fleet\EloquentVehicle;
-use Dpb\Package\Tickets\Models\Ticket;
-use Dpb\Package\Tickets\Models\TicketSource;
+use Dpb\Package\Tasks\Repositories\PlaceOfOccurrenceRepositoryInterface;
+use Dpb\Package\Tasks\Repositories\TaskGroupRepositoryInterface;
+use Dpb\Package\Tasks\Models\Task;
+use Dpb\Package\Tasks\Models\TaskSource;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 
 class TaskForm
 {
@@ -45,7 +50,7 @@ class TaskForm
                 //     ->getOptionLabelUsing(fn(Vehicle $record) => "{$record->code->code} - {$record->model->title}")
                 //     ->preload()
                 //     ->searchable()
-                //     // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                //     // ->disabled(fn($record) => $record->source_id == TaskSource::byCode('planned-maintenance')->first()->id)
                 //     ->required(false),
                 // subject
                 // VehiclePicker::make('subject_id')
@@ -53,50 +58,69 @@ class TaskForm
                 //     ->getOptionLabelFromRecordUsing(null)
                 //     ->getSearchResultsUsing(null)
                 //     ->searchable(),
-            Forms\Components\Select::make('subject_id')
-                ->label(__('tms-ui::tasks/task.form.fields.subject'))
-                ->columnSpan(1)
-                ->options(EloquentVehicle::whereNotNull('code_1')
-                    ->get()
-                    ->mapWithKeys(function($vehicle) {
-                        return [
-                            $vehicle->id => $vehicle->code_1
-                        ];
-                    })
-                )
-                // ->getOptionLabelFromRecordUsing(null)
-                // ->getSearchResultsUsing(null)
-                ->preload()
-                ->searchable()
-                // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                ->required(false), 
+                Forms\Components\Select::make('subject_id')
+                    ->label(__('tms-ui::tasks/task.form.fields.subject'))
+                    ->columnSpan(1)
+                    ->options(
+                        EloquentVehicle::whereNotNull('code_1')
+                            ->get()
+                            ->mapWithKeys(function ($vehicle) {
+                                return [
+                                    $vehicle->id => $vehicle->code_1
+                                ];
+                            })
+                    )
+                    ->live()
+                    // ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    // ->getOptionLabelFromRecordUsing(null)
+                    // ->getSearchResultsUsing(null)
+                    ->preload()
+                    ->searchable()
+                    // ->disabled(fn($record) => $record->source_id == TaskSource::byCode('planned-maintenance')->first()->id)
+                    ->required(false),
                 // group
-                // Forms\Components\Select::make('group_id')
-                //     ->label(__('tms-ui::tasks/task.form.fields.group'))
-                //     ->relationship('group', 'title')
-                //     ->live(),
+                Forms\Components\ToggleButtons::make('group_id')
+                    ->label(__('tms-ui::tasks/task.form.fields.group'))
+                    ->options(
+                        function (TaskGroupRepositoryInterface $tgRepo) {
+                            return collect($tgRepo->all())->mapWithKeys(fn($mg) => [$mg->id() => $mg->title()]);
+                        }
+                    )
+                    ->inline()
+                    ->required(),
                 // assigned to
                 Forms\Components\ToggleButtons::make('assigned_to_id')
                     ->label(__('tms-ui::tasks/task.form.fields.assigned_to'))
                     ->columnSpan(2)
                     ->options(
-                        fn() =>
-                        EloquentMaintenanceGroup::pluck('code', 'id')
+                        function (MaintenanceGroupRepositoryInterface $mgRepo) {
+                            return collect($mgRepo->all())->mapWithKeys(fn($tg) => [$tg->id() => $tg->code()]);
+                        }
                     )
-                    ->inline(),        
-                    // title            
-                Forms\Components\TextInput::make('title')
-                    ->columnSpan(3)
-                    ->label(__('tms-ui::tasks/task.form.fields.title')),
-                // ->readOnly(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
-                // ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id),
+                    ->inline(),
+                // place of occurrence
+                Forms\Components\ToggleButtons::make('place_of_occurence_id')
+                    ->label(__('tms-ui::tasks/task.form.fields.place_of_occurrence'))
+                    ->columnSpan(2)
+                    ->options(
+                        function (PlaceOfOccurrenceRepositoryInterface $poRepo) {
+                            return collect($poRepo->all())->mapWithKeys(fn($po) => [$po->id() => $po->title()]);
+                        }
+                    )
+                    ->inline(),                    
+                // title            
+                // Forms\Components\TextInput::make('title')
+                //     ->columnSpan(3)
+                //     ->label(__('tms-ui::tasks/task.form.fields.title')),
+                // ->readOnly(fn($record) => $record->source_id == TaskSource::byCode('planned-maintenance')->first()->id)
+                // ->disabled(fn($record) => $record->source_id == TaskSource::byCode('planned-maintenance')->first()->id),
                 // Forms\Components\ToggleButtons::make('source_id')
                 //     ->label(__('tms-ui::tasks/task.form.fields.source'))
-                //     ->disabled(fn($record) => $record->source_id == TicketSource::byCode('planned-maintenance')->first()->id)
+                //     ->disabled(fn($record) => $record->source_id == TaskSource::byCode('planned-maintenance')->first()->id)
                 //     // ->relationship('source', 'title')
                 //     ->inline()
                 //     ->columnSpan(7)
-                //     ->options(fn() => TicketSource::pluck('title', 'id')),
+                //     ->options(fn() => TaskSource::pluck('title', 'id')),
 
                 // Forms\Components\Select::make('source_id')
                 //     ->relationship('source', 'title', null, true)
@@ -119,7 +143,7 @@ class TaskForm
                 //     ->getSearchResultsUsing(null)
                 //     ->searchable()
                 //     ->columnSpan(4)
-                //     // ->default(function(TicketService $ticketService, $record) {
+                //     // ->default(function(TaskService $ticketService, $record) {
                 //     //return $ticketService->getDepartment($record)->id;
                 //     // return 283;
                 //     // })

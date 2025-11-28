@@ -3,6 +3,7 @@
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket;
 
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tickets\EloquentTicketType;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Forms\TicketTypeForm;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Pages;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Tables\TicketTypeTable;
 use Filament\Forms;
@@ -41,13 +42,7 @@ class TicketTypeResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('code')
-                    ->label(__('tms-ui::tickets/ticket-type.form.fields.code.label')),
-                Forms\Components\TextInput::make('title')
-                    ->label(__('tms-ui::tickets/ticket-type.form.fields.title.label')),
-            ]);
+        return TicketTypeForm::make($form);
     }
 
     public static function table(Table $table): Table

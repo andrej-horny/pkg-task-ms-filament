@@ -39,7 +39,9 @@ class TaskMSFilamentPanelProvider extends PanelProvider
                 Resources\Activity\TemplateGroupResource::class,
                 // tasks
                 Resources\Task\TaskGroupResource::class,
+                Resources\Task\TaskItemGroupResource::class,
                 Resources\Task\TaskResource::class,
+                Resources\Task\PlaceOfOccurrenceResource::class,
                 // tickets
                 Resources\Ticket\TicketResource::class,
                 Resources\Ticket\TicketTypeResource::class,

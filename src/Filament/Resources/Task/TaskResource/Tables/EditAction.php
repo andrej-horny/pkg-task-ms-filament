@@ -2,7 +2,7 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Tables;
 
-use App\Services\TS\CreateTicketService;
+use App\Services\TS\CreateTaskService;
 use App\Services\TS\ActivityService;
 use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
@@ -42,7 +42,7 @@ class EditAction
                 $data['activities'] = $activitySvc->getActivities($record);
                 return $data;
             })
-            ->using(function (Model $record, array $data, CreateTicketService $ticketSvc): ?Model {
+            ->using(function (Model $record, array $data, CreateTaskService $ticketSvc): ?Model {
                 return $ticketSvc->update($record, $data);
             });
     }

@@ -6,6 +6,7 @@ use Dpb\Package\TaskMS\Application\UseCase\Tasks\UpdateTaskUseCase;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 
 class EditTask extends EditRecord
@@ -18,6 +19,11 @@ class EditTask extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('tms-ui::tasks/task.update_heading', ['title' => $this->record->id]);
+    }    
 
     protected function mutateFormDataBeforeFill(array $data): array
     {

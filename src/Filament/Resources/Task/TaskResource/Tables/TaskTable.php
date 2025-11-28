@@ -2,17 +2,17 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Tables;
 
-use App\Models\TicketAssignment;
+use App\Models\TaskAssignment;
 use App\Services\Activity\Activity\WorkService;
-use App\Services\TicketAssignmentRepository;
+use App\Services\TaskAssignmentRepository;
 use App\Services\TS\ActivityService;
-use App\Services\TS\CreateTicketService;
+use App\Services\TS\CreateTaskService;
 use App\Services\TS\HeaderService;
 use App\Services\TS\SubjectService;
 use App\States;
 use App\StateTransitions\TS\CreatedToInProgress;
 use App\StateTransitions\TS\InProgressToCancelled;
-use Dpb\Package\Tickets\Models\Ticket;
+use Dpb\Package\Tasks\Models\Task;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
@@ -25,15 +25,17 @@ class TaskTable
     public static function make(Table $table): Table
     {
         return $table
+            ->heading(__('tms-ui::tasks/task.table.heading'))
+            ->emptyStateHeading(__('tms-ui::tasks/task.table.empty_state_heading'))
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
-            ->recordClasses(fn($record) => match ($record->state?->getValue()) {
-                States\TS\Ticket\Created::$name => 'bg-blue-200',
-                States\TS\Ticket\Closed::$name => 'bg-green-200',
-                States\TS\Ticket\Cancelled::$name => 'bg-gray-50',
-                States\TS\Ticket\InProgress::$name => 'bg-yellow-200',
-                default => null,
-            })
+            // ->recordClasses(fn($record) => match ($record->state?->getValue()) {
+            //     States\TS\Task\Created::$name => 'bg-blue-200',
+            //     States\TS\Task\Closed::$name => 'bg-green-200',
+            //     States\TS\Task\Cancelled::$name => 'bg-gray-50',
+            //     States\TS\Task\InProgress::$name => 'bg-yellow-200',
+            //     default => null,
+            // })
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label(__('tms-ui::tasks/task.table.columns.id')),
@@ -45,17 +47,21 @@ class TaskTable
                     ->label(__('tms-ui::tasks/task.table.columns.subject')),
                 // Tables\Columns\TextColumn::make('title')
                 //     ->label(__('tms-ui::tasks/task.table.columns.title.label')),
+                // task group
+                Tables\Columns\TextColumn::make('group.title')
+                    ->label(__('tms-ui::tasks/task.table.columns.group')),
+                // description
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('tms-ui::tasks/task.table.columns.description'))
                     ->grow(),
                 // Tables\Columns\TextColumn::make('state')
                 //     ->label(__('tms-ui::tasks/task.table.columns.state'))
-                //     ->state(fn(Ticket $record) => $record->state->label())
+                //     ->state(fn(Task $record) => $record->state->label())
                 //     // ->state(fn($record) => dd($record)),
                 //     ->action(
                 //         Action::make('select')
                 //             ->requiresConfirmation()
-                //             ->action(function (Ticket $record): void {
+                //             ->action(function (Task $record): void {
                 //                 $record->state == 'created'
                 //                     ? $record->state->transition(new CreatedToInProgress($record, auth()->guard()->user()))
                 //                     : $record->state->transition(new InProgressToCancelled($record, auth()->guard()->user()));
@@ -99,10 +105,10 @@ class TaskTable
                 //         });
                 //         return $result;
                 //     }),
-                // source
-                Tables\Columns\TextColumn::make('source.title')
-                    ->label(__('tms-ui::tasks/task.table.columns.source')),
-
+                // place of occurrence
+                Tables\Columns\TextColumn::make('placeOfOccurrence.title')
+                    ->label(__('tms-ui::tasks/task.table.columns.place_of_occurrence')),
+                // expenses
                 Tables\Columns\TextColumn::make('expenses')
                     ->label(__('tms-ui::tasks/task.table.columns.total_expenses'))
                 // ->state(function ($record) {
@@ -126,6 +132,9 @@ class TaskTable
                 //     }),
             ])
             // ->filters(TaskTableFilters::make())
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
@@ -157,7 +166,7 @@ class TaskTable
                 //     $data['activities'] = $activitySvc->getActivities($record);
                 //     return $data;
                 // })
-                // ->using(function (Model $record, array $data, CreateTicketService $ticketSvc): ?Model {
+                // ->using(function (Model $record, array $data, CreateTaskService $ticketSvc): ?Model {
                 //     return $ticketSvc->update($record, $data);
                 // })
             ])

@@ -13,6 +13,7 @@ return [
             'group' => 'Typ zákazky',
             'subject' => 'Vozidlo',
             'assigned_to' => 'Technická prevádzka',
+            'place_of_occurrence' => 'Miesto výskytu',
             'department' => 'Stredisko',
         ],
         'sections' => [
@@ -43,6 +44,7 @@ return [
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
             ],
             'source' => 'Miesto výskytu',
+            'place_of_occurrence' => 'Miesto výskytu',
             'parent' => 'Patrí pod',
             'total_expenses' => 'Náklady'
         ],
@@ -55,7 +57,7 @@ return [
         ],
     ],
     'relation_manager' => [
-        'ticket_items' => [
+        'task_items' => [
             'table' => [
                 'heading' => 'Podzákazky',
                 'empty_state_heading' => 'Žiadne podzákazky na zobrazenie',

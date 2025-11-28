@@ -1,10 +1,10 @@
 <?php
 
 return [
+    'create_heading' => 'Vytvoriť podzákazku',
+    'list_heading' => 'Podzákazky',
+    'update_heading' => 'Upraviť podzákazku: :code :subject',
     'form' => [
-        'create_heading' => 'Vytvoriť podzákazku',
-        'list_heading' => 'Podzákazky',
-        'update_heading' => 'Upraviť podzákazku: :code :subject',
         'fields' => [
             'code' => [
                 'label' => 'Kód',
@@ -12,8 +12,8 @@ return [
                 'tooltip' => 'Jedinečný identifikátor záznamu použitý v aplikácií',
             ],
             'date' => 'Dátum',
-            // 'title' => 'Názov',
-            'title' => 'Detail poruchy',
+            'title' => 'Názov',
+            // 'title' => 'Detail poruchy',
             'group' => 'Detail poruchy',
             'description' => 'Popis',
             'source' => 'Miesto výskytu',
@@ -48,16 +48,16 @@ return [
         'row_groups' => [
         ],
         'columns' => [
-            'id' => ['label' => 'ID'],
-            'code' => ['label' => 'Kód'],
-            'date' => ['label' => 'Dátum'],
-            // 'title' => ['label' => 'Názov'],
-            'title' => ['label' => 'Detail poruchy'],
-            'group' => ['label' => 'Detail poruchy'],
-            'description' => ['label' => 'Popis'],
-            'state' => ['label' => 'Stav'],
-            'subject' => ['label' => 'Vozidlo'],
-            'ticket' => ['label' => 'Zákazka'],
+            'id' => 'ID',
+            'code' => 'Kód',
+            'date' => 'Dátum',
+            // 'title' => 'Názov',
+            'title' => 'Názov',
+            'group' => 'Detail poruchy',
+            'description' => 'Popis',
+            'state' => 'Stav',
+            'subject' => 'Vozidlo',
+            'ticket' => 'Zákazka',
             'assigned_to' => [
                 'label' => 'TP',
                 'tooltip' => 'Technická prevádzka'
@@ -66,7 +66,7 @@ return [
                 'label' => 'Normy',
                 'tooltip' => 'Predpokladané trvanie/skutočné trvanie'
             ],
-            'source' => ['label' => 'Miesto výskytu'],
+            'source' => 'Miesto výskytu',
             'expenses' => 'Náklady'
         ]
     ],

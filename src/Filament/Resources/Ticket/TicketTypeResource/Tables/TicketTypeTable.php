@@ -20,11 +20,18 @@ class TicketTypeTable
             //     default => null,
             // })
             ->columns([
-                Tables\Columns\TextColumn::make('code')->label(__('tms-ui::tickets/ticket-type.table.columns.code.label')),
-                Tables\Columns\TextColumn::make('title')->label(__('tms-ui::tickets/ticket-type.table.columns.title.label')),
+                // uri
+                Tables\Columns\TextColumn::make('uri')
+                    ->label(__('tms-ui::tickets/ticket-type.table.columns.uri')),
+                // title
+                Tables\Columns\TextColumn::make('title')
+                    ->label(__('tms-ui::tickets/ticket-type.table.columns.title')),
             ])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),  
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -35,6 +42,5 @@ class TicketTypeTable
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-
     }
 }

@@ -1,25 +1,25 @@
 <?php
 
-namespace Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource\Pages;
+namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskItemGroupResource\Pages;
 
-use Dpb\Package\TaskMSFilament\Filament\Resources\Ticket\TicketTypeResource;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskItemGroupResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Support\Htmlable;
 
-class ListTicketTypes extends ListRecords
+class ListTaskItemGroups extends ListRecords
 {
-    protected static string $resource = TicketTypeResource::class;
+    protected static string $resource = TaskItemGroupResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
             // Actions\CreateAction::make(),
         ];
-    }
+    }   
 
     public function getTitle(): string | Htmlable
     {
         return '';
-    }    
+    }       
 }

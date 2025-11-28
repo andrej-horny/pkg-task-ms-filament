@@ -4,7 +4,7 @@ namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource\P
 
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskGroupResource;
 use Dpb\Package\TaskMS\Application\UseCase\Tasks\CreateTaskGroupUseCase;
-use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\TaskGroupMapper;
+use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Mappings\Tasks\TaskGroupMapper;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;

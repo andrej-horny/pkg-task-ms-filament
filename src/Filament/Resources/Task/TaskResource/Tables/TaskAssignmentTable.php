@@ -2,15 +2,15 @@
 
 namespace Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Tables;
 
-use App\Models\TicketAssignment;
+use App\Models\TaskAssignment;
 use App\Services\Activity\Activity\WorkService;
-use App\Services\TicketAssignmentRepository;
+use App\Services\TaskAssignmentRepository;
 use App\Services\TS\ActivityService;
 use App\States;
 use App\StateTransitions\TS\CreatedToInProgress;
 use App\StateTransitions\TS\InProgressToCancelled;
 use Dpb\Package\Fleet\Models\Vehicle;
-use Dpb\Package\Tickets\Models\Ticket;
+use Dpb\Package\Tasks\Models\Task;
 use Filament\Forms\Components\DatePicker;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
@@ -29,10 +29,10 @@ class TaskAssignmentTable
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(100)
             ->recordClasses(fn($record) => match ($record->ticket?->state?->getValue()) {
-                States\TS\Ticket\Created::$name => 'bg-blue-200',
-                States\TS\Ticket\Closed::$name => 'bg-green-200',
-                States\TS\Ticket\Cancelled::$name => 'bg-gray-50',
-                States\TS\Ticket\InProgress::$name => 'bg-yellow-200',
+                States\TS\Task\Created::$name => 'bg-blue-200',
+                States\TS\Task\Closed::$name => 'bg-green-200',
+                States\TS\Task\Cancelled::$name => 'bg-gray-50',
+                States\TS\Task\InProgress::$name => 'bg-yellow-200',
                 default => null,
             })
             ->columns([
@@ -44,7 +44,7 @@ class TaskAssignmentTable
                 // subject
                 Tables\Columns\TextColumn::make('subject.code.code')
                     ->label(__('tickets/ticket.table.columns.subject')),
-                // ->state(function ($record, TicketAssignment $svc) {
+                // ->state(function ($record, TaskAssignment $svc) {
                 //     return $svc->whereBelongsTo($record)->first()->subject?->code?->code;
                 // }),
                 Tables\Columns\TextColumn::make('ticket.group.title')
@@ -59,12 +59,12 @@ class TaskAssignmentTable
                 // state
                 Tables\Columns\TextColumn::make('ticket.state')
                     ->label(__('tickets/ticket.table.columns.state'))
-                    ->state(fn(TicketAssignment $record) => $record->ticket->state->label())
+                    ->state(fn(TaskAssignment $record) => $record->ticket->state->label())
                     // ->state(fn($record) => dd($record)),
                     ->action(
                         Action::make('select')
                             ->requiresConfirmation()
-                            ->action(function (TicketAssignment $record): void {
+                            ->action(function (TaskAssignment $record): void {
                                 $ticket = $record->ticket;
                                 $ticket->state == 'created'
                                     ? $ticket->state->transition(new CreatedToInProgress($ticket, auth()->guard()->user()))
@@ -135,17 +135,17 @@ class TaskAssignmentTable
                 //         return $result;
                 //     }),
             ])
-            ->filters(TicketTableFilters::make())
+            ->filters(TaskTableFilters::make())
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->modalWidth(MaxWidth::MaxContent) // options: sm, md, lg, xl, 2xl
                     // ->using(function (array $data, string $model, SubjectService $ticketSubjectSvc, HeaderService $ticketHeaderService): ?Model {
-                    // ->using(function (array $data, string $model, CreateTicketService $ticketSvc): ?Model {
+                    // ->using(function (array $data, string $model, CreateTaskService $ticketSvc): ?Model {
                     //     dd('hh');
                     //     return $ticketSvc->create($data);
                     // })
 
-                    ->using(function (array $data, TicketAssignmentRepository $ticketAssignmentRepository): ?Model {
+                    ->using(function (array $data, TaskAssignmentRepository $ticketAssignmentRepository): ?Model {
                         dd('hh');
                         return $ticketAssignmentRepository->create($data);
                     }),

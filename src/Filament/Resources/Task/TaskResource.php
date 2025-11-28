@@ -6,6 +6,7 @@ use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Pages;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Tables\TaskTable;
 use Dpb\Package\TaskMS\Infrastructure\Persistence\Eloquent\Models\Tasks\EloquentTask;
 use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\Forms\TaskForm;
+use Dpb\Package\TaskMSFilament\Filament\Resources\Task\TaskResource\RelationManagers\TaskItemRelationManager;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
@@ -56,7 +57,7 @@ class TaskResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TaskItemRelationManager::class
         ];
     }
 
